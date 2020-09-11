@@ -1,0 +1,21 @@
+<h1>
+{% if name %}
+    Hello {{ name }}!
+{% else %}
+    Hello, Stranger!
+{% endif %}
+</h1>
+
+
+{% macro render_comment(name) %}
+    <li>{{ name }}</li>
+{% endmacro %}
+
+<h1>
+<ul>
+    {% for name in name %}
+        <li>render_comment{{ comment }}</li>
+    {% endfor %}
+</ul>
+
+</h1>
