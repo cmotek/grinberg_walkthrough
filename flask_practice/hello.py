@@ -28,6 +28,7 @@ app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
 app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
 app.config['FLASKY_MAIL_SUBJECT_PREFIX'] = '[Flasky]'
 app.config['FLASK_MAIL_SENDER'] = 'Flasky Admin <flasky@example.com>'
+app.config['FLASKY_ADMIN'] = os.environ.get('FLASKY_ADMIN')
 bootstrap = Bootstrap(app)
 moment = Moment(app)
 migrate = Migrate(app,db)
@@ -43,6 +44,8 @@ def index():
             db.session.add(user)
             db.session.commit()
             session['known'] = False
+            if app.config['FLASKY_ADMIN']:
+                send_email(app.config['FLASKY_ADMIN'], 'New User', 'mail/new_user', user=user)
         else:
             session['known'] = True
         session['name'] = form.name.data
