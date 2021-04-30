@@ -151,7 +151,7 @@ def change_email_request():
 
 @auth.route('/change_email/<token>')
 @login_required
-def change_email(token):
+def change_email(token):   
     if current_user.change_email(token):
         db.session.commit()
         flash('Your email address has been updated.')
